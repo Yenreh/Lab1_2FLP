@@ -34,7 +34,7 @@
 (invert '((6 9) (10 90) (82 7) ) odd? )
 
 
-;Ejercicio 2
+;Ejercicio 3
 
 ;Propósito:
 ;retornar una lista similar a la que recibe (L), pero debe tener en la posición ingresada n (indexando desde cero)
@@ -53,23 +53,60 @@
   (lambda (l n x p)
     (letrec
         (
-         (count-set
-          (lambda (l n x p cont)
+         (count-list-set
+          (lambda (l n x p ctr)
             (cond
               [(null? l) empty]
-              [(and (= cont n) (p (car l))) (cons x (cdr l))]
-              [else (cons (car l) (count-set (cdr l) n x p (+ cont 1)))]
+              [(and (= ctr n) (p (car l))) (cons x (cdr l))]
+              [else (cons (car l) (count-list-set (cdr l) n x p (+ ctr 1)))]
               )
             )
           )
          )
-      (count-set l n x p 0)
+      (count-list-set l n x p 0)
       )
     )
   )
 
 ;Pruebas
-
 (list-set '(5 8 7 6) 2 '(1 2) odd?)
 (list-set '(5 8 7 6) 2 '(1 2) even?)
 
+
+;Ejercicio 5
+
+;Propósito:
+;n retorna (desde una posicion inicial 0) el primer elemento de la lista que satisface el predicado L.
+;Si llega a suceder que ningun elemento satisface el predicado recibido, la funcion debe retornar #f
+
+
+;Entradas:
+;l:lista
+;p:predicado
+
+;Salidas:
+;n:number or b:bool
+
+(define list-index
+  (lambda (p l)
+    (letrec
+        (
+         (count-list-index
+          (lambda (p l ctr)
+            (cond
+              [(null? l) #f]
+              [(p (car l)) ctr]
+              [else (count-list-index p (cdr l) (+ ctr 1))]
+              )
+            )
+          )
+         )
+      (count-list-index p l 0)
+      )
+    )
+  )
+
+;Pruebas
+(list-index number? '(a 2 (1 3) b 7))
+(list-index symbol? '(a (b c) 17 foo))
+(list-index symbol? '(1 2 (a b) 3))
