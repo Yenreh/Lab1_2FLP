@@ -76,7 +76,7 @@
 ;Ejercicio 5
 
 ;Propósito:
-;n retorna (desde una posicion inicial 0) el primer elemento de la lista que satisface el predicado L.
+;retornar (desde una posicion inicial 0) el primer elemento de la lista que satisface el predicado L.
 ;Si llega a suceder que ningun elemento satisface el predicado recibido, la funcion debe retornar #f
 
 
@@ -110,3 +110,47 @@
 (list-index number? '(a 2 (1 3) b 7))
 (list-index symbol? '(a (b c) 17 foo))
 (list-index symbol? '(1 2 (a b) 3))
+
+;Ejercicio 7
+
+;Propósito:
+;retornar una lista de tuplas que representen el producto cartesiano entre L1y L2.
+;Los pares pueden aparecer en cualquier orden
+
+
+;Entradas:
+;l1:lista
+;l2:lista
+
+;Salidas:
+;l:lista
+(define cartesian-product
+  (lambda (l1 l2)
+    (letrec
+        (
+         (join-pairs
+           (lambda (e l)
+             [cond
+               [(null? l) empty]
+               [else (cons (list e (car l)) (join-pairs e (cdr l)))]
+               ]
+             )
+           )
+         (join-lists
+           (lambda (l1 l2)
+             [cond
+               [(null? l1) empty]
+               [else (append (join-pairs (car l1) l2) (cartesian-product (cdr l1) l2))]
+               ]
+             )
+           )
+         )
+      (join-lists l1 l2)
+      )
+    )
+  )
+
+
+;Pruebas
+(cartesian-product '(a b c) '(x y))
+(cartesian-product '(p q r) '(5 6 7))
