@@ -85,7 +85,7 @@
 ;p:predicado
 
 ;Salidas:
-;n:number or b:bool
+;n:numero or b:booleano
 
 (define list-index
   (lambda (p l)
@@ -111,6 +111,7 @@
 (list-index symbol? '(a (b c) 17 foo))
 (list-index symbol? '(1 2 (a b) 3))
 
+
 ;Ejercicio 7
 
 ;Propósito:
@@ -124,6 +125,7 @@
 
 ;Salidas:
 ;l:lista
+
 (define cartesian-product
   (lambda (l1 l2)
     (letrec
@@ -150,7 +152,51 @@
     )
   )
 
-
 ;Pruebas
 (cartesian-product '(a b c) '(x y))
 (cartesian-product '(p q r) '(5 6 7))
+
+
+;Ejercicio 9
+
+;Propósito:
+;determinar el n ́umero de inversiones de la lista L
+
+
+;Entradas:
+;l:lista
+
+;Salidas:
+;n:numero
+
+(define inversions
+  (lambda (l)
+    (letrec
+        (
+         (count-inversions
+          (lambda (l n)
+            [cond
+              [(null? l) 0]
+              [(> n (car l)) (+ 1 (count-inversions (cdr l) n))]
+              [else (count-inversions (cdr l) n)]
+              ] 
+            )
+          )
+         (add-inversions
+          (lambda (l)
+            [cond
+              [(null? l) 0]
+              [else (+ (add-inversions (cdr l)) (count-inversions (cdr l) (car l)))]
+              ] 
+            )
+          )
+         )
+      (add-inversions l)
+      )
+    )
+  )
+
+;Pruebas
+(inversions '(2 3 8 6 1))
+(inversions '(1 2 3 4))
+(inversions '(3 2 1))
