@@ -270,7 +270,6 @@
 ;Propósito:
 ;retornar una lista con dos elementos correspondientes a la cantidad de pares e impares en arbol
 
-
 ;Entradas:
 ;arb:arbol binario
 
@@ -305,3 +304,44 @@
                         (17 () ())
                         ())
                        (31 () ()))))
+
+
+;Ejercicio 17
+
+;Propósito:
+;retornar el resultado de realizar la multiplicacion matriz por vector
+
+;Entradas:
+;mat:lista de listas
+;vec:lista
+
+;Salidas:
+;l:lista
+
+(define prod-scalar-matriz
+  (lambda (mat vec)
+    (letrec
+        (
+         (operate-row-x-vec
+          (lambda (vec mat-row)
+            (if (null? vec) empty
+                (cons (* (car mat-row) (car vec)) (operate-row-x-vec (cdr vec) (cdr mat-row)))
+                )
+            )
+          )
+         (join-rows
+          (lambda (mat)
+            (if (null? mat) empty
+                (cons (operate-row-x-vec (car mat) vec) (join-rows (cdr mat)))
+                )
+            )
+          )
+         )
+      (join-rows mat)
+      )     
+    )
+  )
+
+;Pruebas
+(prod-scalar-matriz '((1 1) (2 2)) '(2 3))
+(prod-scalar-matriz '((1 1) (2 2) (3 3)) '(2 3))
