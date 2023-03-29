@@ -200,3 +200,73 @@
 (inversions '(2 3 8 6 1))
 (inversions '(1 2 3 4))
 (inversions '(3 2 1))
+
+
+;Ejercicio 11
+
+;Propósito:
+;retornar una lista donde la posici ́on n-esima corresponde al resultado de aplicar
+;la funcion F sobre los elementos en la posicion n-esima en L1 y L2.
+
+
+;Entradas:
+;f:funcion binaria
+;l1:lista
+;l2:lista
+
+
+;Salidas:
+;n:numero
+
+(define zip
+  (lambda (f l1 l2)
+    [cond
+      [(null? l1) empty]
+      [else (cons (f (car l1) (car l2)) (zip f (cdr l1) (cdr l2)))]
+     ]
+    )
+  )
+
+;Pruebas
+(zip + '(1 4) '(6 2))
+(zip * '(11 5 6) '(10 9 8))
+
+
+;Ejercicio 13
+
+;Propósito:
+;retorna el resultado de aplicar sucesivamente las operaciones en lrators a los valores en lrands.
+
+
+;Entradas:
+;f:funcion binaria
+;lrators:lista de operaciones binarias de tamaño n
+;lrands:lista de numeros de tamaño n+1
+
+
+;Salidas:
+;n:numero
+
+(define operate
+  (lambda (lrators lrands)
+    (letrec
+        (
+         (operations
+          (lambda (lrators lrands aux ctr)
+            (cond
+              [(and (zero? ctr) (null? (cdr lrators))) ((car lrators) (car lrands) (cadr lrands))]
+              [(null? (cdr lrators)) ((car lrators) aux (cadr lrands))]
+              [(zero? ctr) (operations (cdr lrators) (cdr lrands) (+ aux ((car lrators) (car lrands) (cadr lrands))) (+ 1 ctr))]
+              [else (operations (cdr lrators) (cdr lrands) ((car lrators) aux (cadr lrands)) (+ 1 ctr))]
+              )
+            )
+          )
+         )
+      (operations lrators lrands 0 0)
+      )
+    )
+  )
+
+;Pruebas
+(operate (list + * + - *) '(1 2 8 4 11 6))
+(operate (list *) '(4 5))
