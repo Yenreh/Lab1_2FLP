@@ -79,7 +79,6 @@
 ;retornar (desde una posicion inicial 0) el primer elemento de la lista que satisface el predicado L.
 ;Si llega a suceder que ningun elemento satisface el predicado recibido, la funcion debe retornar #f
 
-
 ;Entradas:
 ;l:lista
 ;p:predicado
@@ -117,7 +116,6 @@
 ;Propósito:
 ;retornar una lista de tuplas que representen el producto cartesiano entre L1y L2.
 ;Los pares pueden aparecer en cualquier orden
-
 
 ;Entradas:
 ;l1:lista
@@ -161,7 +159,6 @@
 
 ;Propósito:
 ;determinar el n ́umero de inversiones de la lista L
-
 
 ;Entradas:
 ;l:lista
@@ -208,12 +205,10 @@
 ;retornar una lista donde la posici ́on n-esima corresponde al resultado de aplicar
 ;la funcion F sobre los elementos en la posicion n-esima en L1 y L2.
 
-
 ;Entradas:
 ;f:funcion binaria
 ;l1:lista
 ;l2:lista
-
 
 ;Salidas:
 ;n:numero
@@ -235,14 +230,12 @@
 ;Ejercicio 13
 
 ;Propósito:
-;retorna el resultado de aplicar sucesivamente las operaciones en lrators a los valores en lrands.
-
+;retornar el resultado de aplicar sucesivamente las operaciones en lrators a los valores en lrands.
 
 ;Entradas:
 ;f:funcion binaria
 ;lrators:lista de operaciones binarias de tamaño n
 ;lrands:lista de numeros de tamaño n+1
-
 
 ;Salidas:
 ;n:numero
@@ -270,3 +263,45 @@
 ;Pruebas
 (operate (list + * + - *) '(1 2 8 4 11 6))
 (operate (list *) '(4 5))
+
+
+;Ejercicio 15
+
+;Propósito:
+;retornar una lista con dos elementos correspondientes a la cantidad de pares e impares en arbol
+
+
+;Entradas:
+;arb:arbol binario
+
+;Salidas:
+;l:lista
+
+(define count-odd-and-even
+  (lambda (arb)
+    (letrec
+        (
+         (count-filter-tree
+          (lambda (arb p)
+            (cond
+              [(null? arb) 0]
+              [(p (car arb)) (+ 1 (count-filter-tree (cadr arb) p) (count-filter-tree (caddr arb) p)) ]
+              [else (+ (count-filter-tree (cadr arb) p) (count-filter-tree (caddr arb) p)) ]   
+              )
+            )
+          )
+         )
+      (list (count-filter-tree arb even?) (count-filter-tree arb odd?))
+      )
+    )
+  )
+
+;Pruebas
+(count-odd-and-even '(14
+                      (7 ()
+                         (12 () ()))
+                      (26
+                       (20
+                        (17 () ())
+                        ())
+                       (31 () ()))))
