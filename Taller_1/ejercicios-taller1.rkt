@@ -33,6 +33,30 @@
 (invert '((3 2) (4 2) (1 5) (2 8)) even?)
 (invert '((6 9) (10 90) (82 7) ) odd? )
 
+;Ejercicio 2
+
+;Propósito:
+;Retornar una lista la cual tenga cada uno de los elementos de la lista
+;encerrados en un parentesis adicional
+
+(define down
+ (lambda (L)
+ 
+   (if (eqv? L empty)
+    L
+     (cons(cons (car L) '())(down (cdr L)))
+    )
+  )
+)
+;Entradas:
+;L:lista
+
+;Salidas:
+;L:lista
+
+;Pruebas
+(down '(1 2 3))
+(down '((una) (buena) (idea)))
 
 ;Ejercicio 3
 
@@ -72,6 +96,35 @@
 (list-set '(5 8 7 6) 2 '(1 2) odd?)
 (list-set '(5 8 7 6) 2 '(1 2) even?)
 
+;Ejercicio 4
+
+;Propósito:
+;Retornar una lista con los valores de la lista cumplan un predicado P
+
+(define filter-in
+ (lambda (P L)
+      (if (eqv? L empty)
+        L
+       (if (P (car L))
+        (cons  (car L) (filter-in P (cdr L)))
+        (filter-in P (cdr L))
+      )    
+
+     )
+  )
+)
+;Entradas:
+;L:lista
+;P:predicado
+
+;Salidas:
+;L:lista
+
+;Pruebas
+(filter-in number? '(a 2 (1 3) b 7))
+(filter-in symbol? '(a (b c) 17 foo))
+
+
 
 ;Ejercicio 5
 
@@ -109,6 +162,39 @@
 (list-index number? '(a 2 (1 3) b 7))
 (list-index symbol? '(a (b c) 17 foo))
 (list-index symbol? '(1 2 (a b) 3))
+
+;Ejercicio 6
+
+;Propósito:
+;Retornar una lista con los valores de la lista intercambiados el E1 por E2 y el E2 por E1
+
+(define swapper
+ (lambda (E1 E2 L)
+      (if (eqv? L empty)
+        L
+       (if (equal? E1 (car L))
+        (cons E2 (swapper E1 E2 (cdr L)))
+        (if (equal? E2 (car L))
+         (cons E1 (swapper E1 E2 (cdr L)))
+         (cons (car L) (swapper E1 E2 (cdr L)))
+        )
+       )    
+     )
+  )
+)
+
+;Entradas:
+;L:lista
+;E1:
+;E2:
+
+;Salidas:
+;L:lista
+
+;Pruebas
+(swapper 'a 'd '(a b c d))
+(swapper 'a 'd '(a d () c d))
+
 
 
 ;Ejercicio 7
