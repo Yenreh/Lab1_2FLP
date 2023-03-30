@@ -240,6 +240,36 @@
 (cartesian-product '(a b c) '(x y))
 (cartesian-product '(p q r) '(5 6 7))
 
+;Ejercicio 8
+
+;Propósito:
+;Retornar una lista con los elementos que cumplen la que F(a)=b
+
+(define mapping
+ (lambda (F L1 L2)
+    (if (or (eqv? L1 empty) (eqv? L2 empty))
+     empty
+      (if (equal? (F (car L1)) (car L2))
+          (cons (append (list(car L1)) (list(car L2))) (mapping F (cdr L1)(cdr L2)))
+          (mapping F (cdr L1)(cdr L2))
+      )
+    )
+  )
+)
+
+
+; Entradas:
+; F: función unaria
+; L1: lista 
+; L2: lista 
+
+;Salidas:
+;L:lista
+
+;Pruebas
+(mapping (lambda (d) (* d 2)) (list 1 2 3) (list 2 4 6))
+(mapping (lambda (d) (* d 3)) (list 1 2 2) (list 2 4 6))
+
 
 ;Ejercicio 9
 
@@ -283,6 +313,45 @@
 (inversions '(2 3 8 6 1))
 (inversions '(1 2 3 4))
 (inversions '(3 2 1))
+
+;Ejercicio 10
+;Propósito:
+;Retornar una lista que debe remover un nivel de anidamiento si encuentra un elemento lista
+
+(define extraerElmentos
+  (lambda (L)
+    (if (null? L)
+     empty
+     (cons (car L) (extraerElmentos(cdr L))
+    )
+    
+   )
+ )
+)
+
+(define up
+ (lambda (L)
+   (if (eqv? L empty)
+    empty
+    (if (list? (car L))
+      (append (extraerElmentos (car L)) (up (cdr L)))
+      (cons (car L) (up (cdr L)))
+    )
+   )
+  )
+)
+
+
+;Entradas: 
+;L: lista 
+
+;Salidas:
+;L:lista
+
+;Pruebas
+
+(up '((1 2) (3 4)))
+(up '((x (y)) z))
 
 
 ;Ejercicio 11
