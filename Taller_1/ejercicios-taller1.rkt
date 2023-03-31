@@ -453,8 +453,8 @@
 (operate (list *) '(4 5))
 
 ;Ejercicio 14
-;Propósito: retornar resultado de todos los valores que se encuentren en un intervalo de a hasta b
-;que cumplan un predicado y pasando por una funcion binaria
+;Propósito: basado en un arbol binario de busqueda la funcion da la ruta del elemento n del arbol
+
 
 
 (define path
@@ -479,19 +479,16 @@
 
 
 ;Entradas: 
-;a: número entero es el límite inferior del intervalo.
-;b: número entero es el límite superior del intervalo.
-;F: función binaria 
-;acum: valor inicial para la acumulación del resultado.
-;filter: función unaria quee un valor booleano.
+;n: numero que se desea buscar en el arbol binario.
+;arbol: arbol binario donde se encuentran todos los elementos a buscar.
 
 ;Salidas:
-;acum: valor que tiene la variable al final.
+;L:lista que muestra la ruta indicando si derecha o izquierda del elemento del arbol
 
 ;Pruebas
 
-(filter-acum 1 10 + 0 odd?)
-(filter-acum 1 10 + 0 even?)
+(path 17 '(14 (7 () (12 () ()))(26 (20 (17 () ())())(31 () ()))))
+(path 4 '(8 (3 (1 () ()) (6 (4 () ()) (7 () ()))) (10 () (14 (13 () ()) ()))))
 
 
 ;Ejercicio 15
