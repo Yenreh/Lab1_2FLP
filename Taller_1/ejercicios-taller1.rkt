@@ -381,6 +381,39 @@
 (zip + '(1 4) '(6 2))
 (zip * '(11 5 6) '(10 9 8))
 
+;Ejercicio 12
+;Propósito: retornar resultado de todos los valores que se encuentren en un intervalo de a hasta b
+;que cumplan un predicado y pasando por una funcion binaria
+
+
+(define filter-acum
+ (lambda (a b F acum filter)
+   (if (eqv? a b)
+    acum
+    (if (filter a)
+       (filter-acum (+ a 1) b F (F acum a) filter)
+       (filter-acum (+ a 1) b F acum filter)
+     )  
+   )
+  )
+)
+
+
+;Entradas: 
+;a: número entero es el límite inferior del intervalo.
+;b: número entero es el límite superior del intervalo.
+;F: función binaria 
+;acum: valor inicial para la acumulación del resultado.
+;filter: función unaria quee un valor booleano.
+
+;Salidas:
+;acum: valor que tiene la variable al final.
+
+;Pruebas
+
+(filter-acum 1 10 + 0 odd?)
+(filter-acum 1 10 + 0 even?)
+
 
 ;Ejercicio 13
 
@@ -418,6 +451,47 @@
 ;Pruebas
 (operate (list + * + - *) '(1 2 8 4 11 6))
 (operate (list *) '(4 5))
+
+;Ejercicio 14
+;Propósito: retornar resultado de todos los valores que se encuentren en un intervalo de a hasta b
+;que cumplan un predicado y pasando por una funcion binaria
+
+
+(define path
+ (lambda (n arbol)
+   (if(eqv? n (car arbol))
+    empty
+    (cond
+      [(> n (car arbol))
+       (cons 'right (path n (caddr arbol)))
+       
+      ]
+      [else
+       (cons 'left (path n (cadr arbol)))
+       
+      ]
+    )
+  )
+ )
+)
+
+
+
+
+;Entradas: 
+;a: número entero es el límite inferior del intervalo.
+;b: número entero es el límite superior del intervalo.
+;F: función binaria 
+;acum: valor inicial para la acumulación del resultado.
+;filter: función unaria quee un valor booleano.
+
+;Salidas:
+;acum: valor que tiene la variable al final.
+
+;Pruebas
+
+(filter-acum 1 10 + 0 odd?)
+(filter-acum 1 10 + 0 even?)
 
 
 ;Ejercicio 15
