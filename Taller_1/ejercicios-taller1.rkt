@@ -616,3 +616,46 @@
 ;Pruebas
 (prod-scalar-matriz '((1 1) (2 2)) '(2 3))
 (prod-scalar-matriz '((1 1) (2 2) (3 3)) '(2 3))
+
+
+;Ejercicio 18
+
+;Propósito:
+;retornar la fila N del triangulo de Pascal.
+
+;Entradas:
+;n:numero
+
+;Salidas:
+;l:lista
+
+(define pascal
+  (lambda (n)
+    (letrec
+        (
+         (n-position
+          (lambda (row col)
+            (cond 
+              [(= col 1) row]
+              [(= col 0) 1]
+              [(= row col) 1]
+              [else (+ (n-position (- row 1) (- col 1)) (n-position (- row 1) col))]
+              )
+            )
+          )
+         (concatenate
+          (lambda (num ctr)
+            (if (= ctr num) (cons (n-position num ctr) empty)
+                (cons (n-position num ctr) (concatenate num (+ ctr 1)))
+                )
+            )
+          )
+         )
+      (concatenate (- n 1) 0)
+      )
+    )
+  )
+
+;Pruebas
+(pascal 5)
+(pascal 1)
