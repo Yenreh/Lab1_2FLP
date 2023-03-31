@@ -461,6 +461,51 @@
                        (31 () ()))))
 
 
+;Ejercicio 16
+
+;Propósito:
+;calcular la integral de una funcion f entre los valores a y b mediante la regla de Simpson
+
+;Entradas:
+;f:funcion
+;a:numero, limite inferior
+;b:numero, limite superior
+;n:numero, entero par
+
+;Salidas:
+;n:numero
+
+(define simpson-rule
+  (lambda (f a b n)
+    (letrec
+        (
+         (h (/ (- b a) n))
+         
+         (calculate-term
+          (lambda (f a b n k h)
+            [cond
+              [(= n k) (f (+ a (* k h)))]
+              [(zero? k) (+ (f a) (calculate-term f a b n (+ k 1) h))]
+              [(odd? k) (+ (* 4 (f (+ a (* k h)))) (calculate-term f a b n (+ k 1) h))]
+              [else (+ (* 2 (f (+ a (* k h)))) (calculate-term f a b n (+ k 1) h))]
+              ]
+            )
+          )
+         (multiplicate-term
+          (lambda (f a b n k h)
+            (* (* (/ h  3) (calculate-term f a b n k h)))
+            )
+          )
+         )
+      (multiplicate-term f a b n 0 h)
+      )     
+    )
+  )
+
+;Pruebas
+(simpson-rule (lambda (x) (* x (* x x))) 1 5 8)
+(simpson-rule (lambda (x) x) 1 5 12)
+
 ;Ejercicio 17
 
 ;Propósito:
