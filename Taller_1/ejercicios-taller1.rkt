@@ -3,8 +3,8 @@
 ;Nombre 1: Herney Eduardo Quintero Trochez 
 ;Código 1: 1528556-3743
 
-;Nombre 2: 
-;Código 2: 
+;Nombre 2: Manuel Alejandro Medina
+;Código 2: 1943270-3743
 
 ;Ejercicio 1
 
