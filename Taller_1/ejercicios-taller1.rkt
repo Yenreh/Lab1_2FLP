@@ -3,6 +3,15 @@
 ;Nombre 1: Herney Eduardo Quintero Trochez 
 ;Código 1: 1528556-3743
 
+
+;Estructuras de datos
+
+;;<lista> := ()
+;; := (<valor-de-scheme> <lista>)
+
+;;<arbol-binario> ::= <int>
+;; := (<simbolo> <arbol-binario> <arbol-binario>)
+
 ;Ejercicio 1
 
 ;Propósito:
