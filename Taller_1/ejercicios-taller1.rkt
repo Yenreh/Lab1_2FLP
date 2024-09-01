@@ -3,9 +3,6 @@
 ;Nombre 1: Herney Eduardo Quintero Trochez 
 ;Código 1: 1528556-3743
 
-;Nombre 2: Manuel Alejandro Medina
-;Código 2: 1943270-3743
-
 ;Ejercicio 1
 
 ;Propósito:
@@ -39,6 +36,12 @@
 ;Retornar una lista la cual tenga cada uno de los elementos de la lista
 ;encerrados en un parentesis adicional
 
+;Entradas:
+;L:lista
+
+;Salidas:
+;L:lista
+
 (define down
  (lambda (L)
  
@@ -48,11 +51,7 @@
     )
   )
 )
-;Entradas:
-;L:lista
 
-;Salidas:
-;L:lista
 
 ;Pruebas
 (down '(1 2 3))
@@ -101,6 +100,13 @@
 ;Propósito:
 ;Retornar una lista con los valores de la lista cumplan un predicado P
 
+;Entradas:
+;L:lista
+;P:predicado
+
+;Salidas:
+;L:lista
+
 (define filter-in
  (lambda (P L)
       (if (eqv? L empty)
@@ -108,17 +114,11 @@
        (if (P (car L))
         (cons  (car L) (filter-in P (cdr L)))
         (filter-in P (cdr L))
-      )    
-
+      )
      )
   )
 )
-;Entradas:
-;L:lista
-;P:predicado
 
-;Salidas:
-;L:lista
 
 ;Pruebas
 (filter-in number? '(a 2 (1 3) b 7))
@@ -168,6 +168,14 @@
 ;Propósito:
 ;Retornar una lista con los valores de la lista intercambiados el E1 por E2 y el E2 por E1
 
+;Entradas:
+;L:lista
+;E1:
+;E2:
+
+;Salidas:
+;L:lista
+
 (define swapper
  (lambda (E1 E2 L)
       (if (eqv? L empty)
@@ -182,14 +190,6 @@
      )
   )
 )
-
-;Entradas:
-;L:lista
-;E1:
-;E2:
-
-;Salidas:
-;L:lista
 
 ;Pruebas
 (swapper 'a 'd '(a b c d))
@@ -245,6 +245,14 @@
 ;Propósito:
 ;Retornar una lista con los elementos que cumplen la que F(a)=b
 
+; Entradas:
+; F: función unaria
+; L1: lista
+; L2: lista
+
+;Salidas:
+;L:lista
+
 (define mapping
  (lambda (F L1 L2)
     (if (or (eqv? L1 empty) (eqv? L2 empty))
@@ -256,15 +264,6 @@
     )
   )
 )
-
-
-; Entradas:
-; F: función unaria
-; L1: lista 
-; L2: lista 
-
-;Salidas:
-;L:lista
 
 ;Pruebas
 (mapping (lambda (d) (* d 2)) (list 1 2 3) (list 2 4 6))
@@ -318,13 +317,24 @@
 ;Propósito:
 ;Retornar una lista que debe remover un nivel de anidamiento si encuentra un elemento lista
 
+;Entradas:
+;L: lista
+
+;Salidas:
+;L:lista
+
+;Funcion axiliar para extraer los elementos de una lista y retornarlos en una lista
+;Entradas:
+;L: lista
+
+;Salidas:
+;L:lista
 (define extraerElmentos
   (lambda (L)
     (if (null? L)
      empty
      (cons (car L) (extraerElmentos(cdr L))
     )
-    
    )
  )
 )
@@ -340,13 +350,6 @@
    )
   )
 )
-
-
-;Entradas: 
-;L: lista 
-
-;Salidas:
-;L:lista
 
 ;Pruebas
 
@@ -385,6 +388,16 @@
 ;Propósito: retornar resultado de todos los valores que se encuentren en un intervalo de a hasta b
 ;que cumplan un predicado y pasando por una funcion binaria
 
+;Entradas:
+;a: número entero es el límite inferior del intervalo.
+;b: número entero es el límite superior del intervalo.
+;F: función binaria
+;acum: valor inicial para la acumulación del resultado.
+;filter: función unaria quee un valor booleano.
+
+;Salidas:
+;acum: valor que tiene la variable al final.
+
 
 (define filter-acum
  (lambda (a b F acum filter)
@@ -397,17 +410,6 @@
    )
   )
 )
-
-
-;Entradas: 
-;a: número entero es el límite inferior del intervalo.
-;b: número entero es el límite superior del intervalo.
-;F: función binaria 
-;acum: valor inicial para la acumulación del resultado.
-;filter: función unaria quee un valor booleano.
-
-;Salidas:
-;acum: valor que tiene la variable al final.
 
 ;Pruebas
 
@@ -455,35 +457,25 @@
 ;Ejercicio 14
 ;Propósito: basado en un arbol binario de busqueda la funcion da la ruta del elemento n del arbol
 
+;Entradas:
+;n: numero que se desea buscar en el arbol binario.
+;arbol: arbol binario donde se encuentran todos los elementos a buscar.
 
+;Salidas:
+;L:lista que muestra la ruta indicando si derecha o izquierda del elemento del arbol
 
 (define path
  (lambda (n arbol)
    (if(eqv? n (car arbol))
     empty
     (cond
-      [(> n (car arbol))
-       (cons 'right (path n (caddr arbol)))
-       
-      ]
-      [else
-       (cons 'left (path n (cadr arbol)))
-       
-      ]
+      [(> n (car arbol)) (cons 'right (path n (caddr arbol))) ]
+      [else (cons 'left (path n (cadr arbol))) ]
     )
   )
  )
 )
 
-
-
-
-;Entradas: 
-;n: numero que se desea buscar en el arbol binario.
-;arbol: arbol binario donde se encuentran todos los elementos a buscar.
-
-;Salidas:
-;L:lista que muestra la ruta indicando si derecha o izquierda del elemento del arbol
 
 ;Pruebas
 
