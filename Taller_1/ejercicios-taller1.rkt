@@ -273,7 +273,7 @@
 ;Ejercicio 9
 
 ;Propósito:
-;determinar el n ́umero de inversiones de la lista L
+;determinar el numero de inversiones de la lista L
 
 ;Entradas:
 ;l:lista
